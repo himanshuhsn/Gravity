@@ -64,19 +64,7 @@ public class GameController {
 	public ResponseEntity<Game> gameplay(@RequestBody Gameplay request) throws InvalidParamException, InvalidGameException {
 		logger.info("Gameplay : {}", request);
 		Game game = gameService.gamePlay(request);
-		simpMessagingTemplate.convertAndSend("topic/game-progress"+game.getGameId(), game);
+		simpMessagingTemplate.convertAndSend("/topic/game-progress/"+game.getGameId(), game);
 		return ResponseEntity.ok(game);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
