@@ -100,8 +100,10 @@ public class GameService {
 		while(y-1 >= 0 && board[xCoordinate][--y] == cellValue) { //left
 			countValidCell++;
 		}
+		if(countValidCell>=4) return true;
 		
 		// up and down
+		countValidCell=1;
 		x=xCoordinate;
 		y=yCoordinate;
 		while(x-1 >= 0 && board[--x][yCoordinate] == cellValue) { //up
@@ -112,8 +114,10 @@ public class GameService {
 		while(x+1 < 7 && board[++x][yCoordinate] == cellValue) { //down
 			countValidCell++;
 		}
+		if(countValidCell>=4) return true;
 		
 		// top-left to bottom-right diagonal
+		countValidCell=1;
 		x = xCoordinate;
 		y = yCoordinate;
 		while(x-1 >= 0 && y-1>= 0 && board[--x][--y] == cellValue) { // top-left
@@ -124,8 +128,10 @@ public class GameService {
 		while(x+1 < 7 && y+1 < 7 && board[++x][++y] == cellValue) { // bottom-right
 			countValidCell++;
 		}
+		if(countValidCell>=4) return true;
 		
 		// top-right to bottom-left diagonal
+		countValidCell=1;
 		x = xCoordinate;
 		y = yCoordinate;
 		while(x+1 < 7 && y-1 >= 0 && board[++x][--y] == cellValue) { // top-right
@@ -136,7 +142,6 @@ public class GameService {
 		while(x-1 >= 0 && y+1 < 7 && board[--x][++y] == cellValue) { // bottom-left
 			countValidCell++;
 		}
-		
 		if(countValidCell>=4) return true;
 		
 		return false;
