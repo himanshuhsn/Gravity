@@ -6,12 +6,12 @@ public class Game {
 	private String gameId;
 	private int[][] board;
 	private GameStatus status;
-	private TicToe winner;
+	private Winner winner;
 	
 	public Game() {
 		
 	}
-	public Game(Player player1, Player player2, String gameId, int[][] board, GameStatus status, TicToe winner) {
+	public Game(Player player1, Player player2, String gameId, int[][] board, GameStatus status, Winner winner) {
 		super();
 		this.player1 = player1;
 		this.player2 = player2;
@@ -50,10 +50,10 @@ public class Game {
 	public void setStatus(GameStatus status) {
 		this.status = status;
 	}
-	public TicToe getWinner() {
+	public Winner getWinner() {
 		return winner;
 	}
-	public void setWinner(TicToe winner) {
+	public void setWinner(Winner winner) {
 		this.winner = winner;
 	}
 }

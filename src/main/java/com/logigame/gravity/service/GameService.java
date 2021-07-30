@@ -8,8 +8,9 @@ import com.logigame.gravity.exception.NotFoundException;
 import com.logigame.gravity.model.Game;
 import com.logigame.gravity.model.GameStatus;
 import com.logigame.gravity.model.Gameplay;
+import com.logigame.gravity.model.Pair;
 import com.logigame.gravity.model.Player;
-import com.logigame.gravity.model.TicToe;
+import com.logigame.gravity.model.Winner;
 import com.logigame.gravity.storage.GameStorage;
 
 public class GameService {
@@ -64,23 +65,28 @@ public class GameService {
 		int[][] board = game.getBoard();
 		board[gamePlay.getxCoordinate()][gamePlay.getyCoordinate()] = gamePlay.getType().getValue();
 		
-		if(gamePlay.getType() == TicToe.X) {
-			if(checkWinner(game.getBoard(), gamePlay)) {
-				game.setWinner(TicToe.X);
-			}
-		} else {
-			if(checkWinner(game.getBoard(), gamePlay)) {
-				game.setWinner(TicToe.O);
-			}
-		}
+//		if(gamePlay.getType() == TicToe.X) {
+//			if(checkWinner(game.getBoard(), gamePlay)) {
+//				Winner 
+//				game.setWinner(TicToe.X);
+//			}
+//		} else {
+//			if(checkWinner(game.getBoard(), gamePlay)) {
+//				game.setWinner(TicToe.O);
+//			}
+//		}
+		
+		game.setWinner(checkWinner(game.getBoard(), gamePlay));
 		
 		GameStorage.getInstance().setGame(game);
 		
 		return game;
 	}
 
-	private boolean checkWinner(int[][] board, Gameplay gamePlay) {
+	private Winner checkWinner(int[][] board, Gameplay gamePlay) {
 		// O(N) implementation
+		Winner winner = new Winner();
+		winner.setWinner(null);
 		
 		int xCoordinate = gamePlay.getxCoordinate();
 		int yCoordinate = gamePlay.getyCoordinate();
@@ -100,7 +106,22 @@ public class GameService {
 		while(y-1 >= 0 && board[xCoordinate][--y] == cellValue) { //left
 			countValidCell++;
 		}
-		if(countValidCell>=4) return true;
+		if(countValidCell>=4) {
+			winner.setWinner(gamePlay.getType());
+			x=xCoordinate;
+			y=yCoordinate;
+			winner.addToWinningCells(new Pair(x,y));
+			while(y+1 < 7 && board[xCoordinate][++y] == cellValue) { //right
+				countValidCell++;
+				winner.addToWinningCells(new Pair(x,y));
+			}
+			x=xCoordinate;
+			y=yCoordinate;
+			while(y-1 >= 0 && board[xCoordinate][--y] == cellValue) { //left
+				countValidCell++;
+				winner.addToWinningCells(new Pair(x,y));
+			}
+		}
 		
 		// up and down
 		countValidCell=1;
@@ -114,7 +135,23 @@ public class GameService {
 		while(x+1 < 7 && board[++x][yCoordinate] == cellValue) { //down
 			countValidCell++;
 		}
-		if(countValidCell>=4) return true;
+		if(countValidCell>=4) {
+			winner.setWinner(gamePlay.getType());
+			x=xCoordinate;
+			y=yCoordinate;
+			winner.addToWinningCells(new Pair(x,y));
+			
+			while(x-1 >= 0 && board[--x][yCoordinate] == cellValue) { //up
+				countValidCell++;
+				winner.addToWinningCells(new Pair(x,y));
+			}
+			x=xCoordinate;
+			y=yCoordinate;
+			while(x+1 < 7 && board[++x][yCoordinate] == cellValue) { //down
+				countValidCell++;
+				winner.addToWinningCells(new Pair(x,y));
+			}
+		}
 		
 		// top-left to bottom-right diagonal
 		countValidCell=1;
@@ -128,7 +165,23 @@ public class GameService {
 		while(x+1 < 7 && y+1 < 7 && board[++x][++y] == cellValue) { // bottom-right
 			countValidCell++;
 		}
-		if(countValidCell>=4) return true;
+		if(countValidCell>=4) {
+			winner.setWinner(gamePlay.getType());
+			x=xCoordinate;
+			y=yCoordinate;
+			winner.addToWinningCells(new Pair(x,y));
+			
+			while(x-1 >= 0 && y-1>= 0 && board[--x][--y] == cellValue) { // top-left
+				countValidCell++;
+				winner.addToWinningCells(new Pair(x,y));
+			}
+			x=xCoordinate;
+			y=yCoordinate;
+			while(x+1 < 7 && y+1 < 7 && board[++x][++y] == cellValue) { // bottom-right
+				countValidCell++;
+				winner.addToWinningCells(new Pair(x,y));
+			}
+		}
 		
 		// top-right to bottom-left diagonal
 		countValidCell=1;
@@ -142,9 +195,25 @@ public class GameService {
 		while(x-1 >= 0 && y+1 < 7 && board[--x][++y] == cellValue) { // bottom-left
 			countValidCell++;
 		}
-		if(countValidCell>=4) return true;
+		if(countValidCell>=4) {
+			winner.setWinner(gamePlay.getType());
+			x=xCoordinate;
+			y=yCoordinate;
+			winner.addToWinningCells(new Pair(x,y));
+			
+			while(x+1 < 7 && y-1 >= 0 && board[++x][--y] == cellValue) { // top-right
+				countValidCell++;
+				winner.addToWinningCells(new Pair(x,y));
+			}
+			x=xCoordinate;
+			y=yCoordinate;
+			while(x-1 >= 0 && y+1 < 7 && board[--x][++y] == cellValue) { // bottom-left
+				countValidCell++;
+				winner.addToWinningCells(new Pair(x,y));
+			}
+		}
 		
-		return false;
+		return winner;
 	}
 	
 }
