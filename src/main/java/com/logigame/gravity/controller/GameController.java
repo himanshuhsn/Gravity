@@ -61,7 +61,7 @@ public class GameController {
 	}
 	
 	@PostMapping("/gameplay")
-	public ResponseEntity<Game> gameplay(@RequestBody Gameplay request) throws InvalidParamException, InvalidGameException {
+	public ResponseEntity<Game> gameplay(@RequestBody Gameplay request) throws InvalidParamException, InvalidGameException, CloneNotSupportedException {
 		logger.info("Gameplay : {}", request);
 		Game game = gameService.gamePlay(request);
 		simpMessagingTemplate.convertAndSend("/topic/game-progress/"+game.getGameId(), game);

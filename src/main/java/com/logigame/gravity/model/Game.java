@@ -1,12 +1,17 @@
 package com.logigame.gravity.model;
 
-public class Game {
+public class Game implements Cloneable{
 	private Player player1;
 	private Player player2;
 	private String gameId;
 	private int[][] board;
 	private GameStatus status;
 	private Winner winner;
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+	    return super.clone();
+	}
 	
 	public Game() {
 		

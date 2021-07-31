@@ -52,7 +52,7 @@ public class GameService {
 		return game;
 	}
 
-	public Game gamePlay(Gameplay gamePlay) throws InvalidParamException, InvalidGameException {
+	public Game gamePlay(Gameplay gamePlay) throws InvalidParamException, InvalidGameException, CloneNotSupportedException {
 		if(!GameStorage.getInstance().getGames().containsKey(gamePlay.getGameId())) {
 			throw new InvalidParamException("Game with id does not exists!");
 		}
@@ -67,12 +67,19 @@ public class GameService {
 		
 		Winner winner = checkWinner(game.getBoard(), gamePlay);
 		game.setWinner(winner);
+		
 		if(winner.getWinner() != null) {
 			game.setStatus(GameStatus.FINISHED);
+			
+			// If any one wins then reset the board
+			Game gameCopy = (Game)game.clone();
+			gameCopy.setBoard(new int [7][7]);
+			gameCopy.setStatus(GameStatus.NEW);
+			GameStorage.getInstance().setGame(gameCopy);
+		} else {
+			GameStorage.getInstance().setGame(game);
 		}
-		
-		GameStorage.getInstance().setGame(game);
-		
+
 		return game;
 	}
 
