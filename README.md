@@ -17,6 +17,10 @@
 - https://www.logigame.tk/ (Final website)
 - https://gravity-q8e6.onrender.com (Backend)
 
+## API documentation
+- Swagger UI can be accessed at `<URL>/swagger-ui/#/`
+- Where `URL` can be `http://localhost:8080` or `https://www.logigame.tk`
+
 ## Local Dev Setup
 1. Fork and clone the repo.
 2. Make sure jdk11 is installed.
