@@ -1,5 +1,7 @@
 # Gravity
 
+This is the backend service for the [gravity-frontend](https://github.com/himanshuhsn/Gravity-Frontend).
+
 ## Game Description
 - This game is similar to the famous tic-tac-toe game, but has different rules, hence requires different strategy to win.
 - At first you will be greated with 7*7 board.
