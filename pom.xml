@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.logigame</groupId>
 	<artifactId>gravity</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>gravity</name>
 	<description>A simple logical game</description>
 	<properties>
