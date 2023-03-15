@@ -19,6 +19,9 @@ This is the backend service for the [gravity-frontend](https://github.com/himans
 - https://www.logigame.tk/ (Final website)
 - https://gravity-q8e6.onrender.com (Backend)
 
+## Demo
+<img src="https://i.ibb.co/vLDcgKy/gravity-demo.gif"/>
+
 ## API documentation
 - Swagger UI can be accessed at `<URL>/swagger-ui/#/`
 - Where `URL` can be `http://localhost:8080` or `https://gravity-q8e6.onrender.com`
