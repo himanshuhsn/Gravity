@@ -26,6 +26,9 @@ This is the backend service for the [gravity-frontend](https://github.com/himans
 - Swagger UI can be accessed at `<URL>/swagger-ui/#/`
 - Where `URL` can be `http://localhost:8080` or `https://gravity-q8e6.onrender.com`
 
+<img src="https://i.ibb.co/xFTKwHY/Swagger-UI.png"/>
+
+
 ## Local Dev Setup
 1. Fork and clone the repo.
 2. Make sure jdk11 is installed.
